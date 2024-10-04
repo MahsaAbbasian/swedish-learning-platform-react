@@ -1,0 +1,153 @@
+/* Flashcard container */
+.flashcard-container {
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f1f7ff;
+  width: 80%; /* Keeps it similar in width to the story box */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+/* Updated Flashcards layout with row limit */
+.flashcard-container .flashcard {
+  flex: 1 0 30%; /* Set each flashcard to take 30% width of the container */
+  background-color: #006db3; /* Swedish word color on the front */
+  color: white;
+  width: 200px;
+  height: 150px;
+  border-radius: 10px;
+  perspective: 1000px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Front of flashcard */
+.flashcard .front {
+  background-color: #006db3; /* Front color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Back of flashcard */
+.flashcard .back {
+  background-color: #999999; /* Back color for translations */
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  transform: rotateY(180deg);
+}
+
+/* Flip animation */
+.flashcard.flip .front {
+  transform: rotateY(180deg);
+}
+
+.flashcard.flip .back {
+  transform: rotateY(0deg);
+}
+
+/* Print Button Styling */
+.print-button {
+  background-color: #aa5a22;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.print-button:hover {
+  background-color: #743913;
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+  .flashcard-container .flashcard {
+    flex: 1 0 45%; /* Make flashcards take 45% width */
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .flashcard-container .flashcard {
+    flex: 1 0 90%; /* Make flashcards take 90% width */
+  }
+}
+
+/* Media Query for Print */
+@media print {
+  /* Hide elements you don't want to print */
+  nav,
+  .print-button,
+  footer {
+    display: none;
+  }
+
+  /* Ensure story content and flashcards print nicely */
+  .story-content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ensure flashcards are printed in their unflipped state */
+  .flashcard.flip .front,
+  .flashcard.flip .back {
+    transform: none; /* Disable any transform effects for print */
+  }
+
+  /* Flashcards print next to each other, fitting as many as possible */
+  .flashcard {
+    width: 45%; /* Allow two flashcards per row */
+    height: auto;
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+    display: inline-block; /* Ensures flashcards print inline without page breaks */
+  }
+
+  /* Remove 3D transformations for print */
+  .flashcard .front,
+  .flashcard .back {
+    position: relative;
+    backface-visibility: visible;
+    transform: none; /* Override any rotation for print */
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .flashcard .front {
+    background-color: #006db3;
+    color: white;
+    font-size: 18px;
+  }
+
+  .flashcard .back {
+    background-color: #999;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
